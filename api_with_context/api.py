@@ -5,15 +5,26 @@ class ApiAlreadyLoadedWithContext(Exception):
     pass
 
 
+class ApiWithoutContext(Exception):
+    pass
+
+
 class Api:
     def __init__(self):
-        self.context = None
+        self._context = None
 
     def load_context(self, context: Context):
-        if self.context is None:
-            self.context = context
+        if self._context is None:
+            self._context = context
         else:
             raise ApiAlreadyLoadedWithContext
+
+    @property
+    def context(self):
+        if self._context:
+            return self._context
+        else:
+            raise ApiWithoutContext
 
     @property
     def id(self):
@@ -25,4 +36,3 @@ class Api:
 
 
 awesome_api: Api = Api()
-

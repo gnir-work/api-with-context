@@ -15,7 +15,7 @@ def test_version():
 
 def test_initialization(test_context):
     # Initialization
-    assert awesome_api.context is None
+    assert awesome_api._context is None
     awesome_api.load_context(test_context)
 
     # Usage of api
